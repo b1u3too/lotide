@@ -41,11 +41,11 @@ const flatten = function(inputArray) {
 //check that it doesn't mutate the original array
 let testing = [1,[2,3]];
 console.log("Testing is: ");
-console.log(testing)
+console.log(testing);
 console.log("Flattened is: ");
 console.log(flatten(testing));
 console.log("Now testing is: ");
-console.log(testing)
+console.log(testing);
 
 //what about when it gets an empty array?
 assertArraysEqual(flatten([]), []);
