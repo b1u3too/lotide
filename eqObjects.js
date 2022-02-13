@@ -21,24 +21,32 @@ const eqArrays = function(firstArray, secondArray) {
 };
 
 const eqObjects = function(firstObject, secondObject) {
+  let state = true;
+
   if (Object.keys(firstObject).length !== Object.keys(secondObject).length) {
-    return false;
+    state = false;
   }
 
   const keyArray = Object.keys(firstObject);
+
   for (const key of keyArray) {
-    if (Array.isArray(firstObject[key]) && Array.isArray(secondObject[key])) {
+    //if both things stored in that key are objects, get recursive!
+    if (typeof firstObject[key] === "object" && typeof secondObject[key] === "object") {
+      state = eqObjects(firstObject[key], secondObject[key]);
+      //if they're not objects but arrays in those keys, call our friend eqArrays
+    } else if (Array.isArray(firstObject[key]) && Array.isArray(secondObject[key])) {
       if (!eqArrays(firstObject[key], secondObject[key])) {
-        return false;
+        state = false;
       }
+      //if no fancy business is needed, do the comparison and update state if it fails
     } else {
       if (firstObject[key] !== secondObject[key]) {
-        return false;
+        state = false;
       }
     }
   }
 
-  return true;
+  return state;
 };
 
 const ab = { a: "1", b: "2" };
@@ -52,3 +60,7 @@ assertEqual(eqObjects(ab, ba), true);
 assertEqual(eqObjects(ab, abc), false);
 assertEqual(eqObjects(cd, dc), true);
 assertEqual(eqObjects(cd, cd2), false);
+assertEqual(eqObjects({ a: { z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }), true);
+assertEqual(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }), false);
+assertEqual(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: 1, b: 2 }), false);
+assertEqual(eqObjects({a: {b: {c: {d: {e: {f: {g: 42}}}}}}}, {a: {b: {c: {d: {e: {f: {g: 42}}}}}}}), true);
