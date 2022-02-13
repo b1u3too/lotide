@@ -26,7 +26,7 @@ const eqArrays = function(firstArray, secondArray) {
   }
 
   return state;
-}
+};
 
 const eqObjects = function(firstObject, secondObject) {
   let state = true;
@@ -38,7 +38,7 @@ const eqObjects = function(firstObject, secondObject) {
   const keyArray = Object.keys(firstObject);
 
   for (const key of keyArray) {
-      //check if what's stored is an array. if yes, call on eqArrays to check equality
+    //check if what's stored is an array. if yes, call on eqArrays to check equality
     if (Array.isArray(firstObject[key]) && Array.isArray(secondObject[key])) {
       if (!eqArrays(firstObject[key], secondObject[key])) {
         state = false;
