@@ -56,6 +56,8 @@ const eqObjects = function(firstObject, secondObject) {
   return state;
 };
 
+module.exports = eqObjects;
+
 const ab = { a: "1", b: "2" };
 const ba = { b: "2", a: "1" };
 const abc = { a: "1", b: "2", c: "3"};
