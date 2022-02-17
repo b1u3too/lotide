@@ -1,5 +1,7 @@
 const assertArraysEqual = require('../assertArraysEqual');
 
+console.log("#assertArraysEqual visual samples: ");
+console.log();
 assertArraysEqual([1,2,3],[1,2,3]); //true
 assertArraysEqual([],[]); //true
 assertArraysEqual(['potato', 'tomato', 'asparagus'],['potato', 'tomato', 'asparagus']); //true
