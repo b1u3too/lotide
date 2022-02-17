@@ -1,29 +1,20 @@
-const assertEqual = require('../assertEqual');
+const assert = require('chai').assert;
 const tail = require('../tail');
 
-//TEST CODE
-//check that the length is not altered
-console.log("Length Test");
-const words = ["Yo Yo", "Lighthouse", "Labs"];
-tail(words);
-assertEqual(words.length, 3);
-
-//Gentle Case
-console.log("GENTLE TEST");
-const test1Words = ["Hello", "Lighthouse", "Labs"];
-const result1 = tail(test1Words);
-assertEqual(result1.length, 2);
-assertEqual(result1[0], test1Words[1]);
-assertEqual(result1[1], test1Words[2]);
-
-//Empty Array Case
-console.log("Empty Array");
-const test2Words = [];
-const result2 = tail(test2Words);
-assertEqual(result2.length, 0);
-
-//Single Element Array
-console.log("Single Element");
-const test3Words = ["Hello Darkness My Old Friend"];
-const result3 = tail(test3Words);
-assertEqual(result3.length, 0);
+describe("#tail", () => {
+  it("should not alter the length of the provided array", () => {
+    const words = ["Yo Yo", "Lighthouse", "Labs"];
+    tail(words);
+    assert.strictEqual(words.length, 3);
+  });
+  it("should return an empty array if given an empty array", () => {
+    assert.deepEqual(tail([]),[]);
+  });
+  it("should return an empty array if given a single element array", () => {
+    assert.deepEqual(tail(['Hello Darkness My Old Friend']), []);
+  });
+  it("should return all but the first element when given an array length 2 or more", () => {
+    assert.deepEqual(tail(["Hello", "Lighthouse", "Labs"]), ["Lighthouse", "Labs"]);
+    assert.deepEqual(tail([0,1,2,3,4,5,6]), [1,2,3,4,5,6]);
+  });
+});
